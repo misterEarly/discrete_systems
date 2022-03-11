@@ -1,5 +1,6 @@
 #include "rt_loop.h"
 #include "mbed.h"
+#include <cstdint>
 
 #define PI 3.1415927
 
@@ -8,9 +9,16 @@ extern DigitalOut led;
 extern EncoderCounter enc1;
 extern EncoderCounter enc2;
 
-rt_loop::rt_loop(float Ts) { this->Ts = Ts; }
+rt_loop::rt_loop(float Ts) {
+
+  this->Ts = Ts;
+
+  dif1.setup(0.01, Ts);
+  dif2.setup(0.01, Ts);
+}
 
 void rt_loop::theloop(void) {
+  uint8_t k = 0;
   while (true) {
     ThisThread::flags_wait_any(threadFlag);
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -23,7 +31,11 @@ void rt_loop::theloop(void) {
     float phi1 = (float)c1 * 2 * PI / 4000.0f;
     float phi2 = (float)c2 * 2 * PI / 4000.0f;
 
-    printf("%d %d %f %f\r\n", c1, c2, phi1, phi2);
+    float w1 = dif1(phi1);
+    float w2 = dif2(phi1);
+    if (++k == 0) {
+      printf("%d %d %f %f %f %f\r\n", c1, c2, phi1, phi2, w1, w2);
+    }
   }
 }
 

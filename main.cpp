@@ -25,7 +25,7 @@ int main() {
 
   printf("Start loop\n");
 
-  rt_loop my_loop(.10);
+  rt_loop my_loop(.001);
   my_loop.start_theloop();
 
   while (1)

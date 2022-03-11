@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EncoderCounter.h"
+#include "IIR_filter.h"
 #include "Signal.h"
 #include "ThreadFlag.h"
 #include "mbed.h"
@@ -20,4 +21,7 @@ private:
   void sendSignal();
   Timer ti;
   float Ts;
+
+  IIR_filter dif1;
+  IIR_filter dif2;
 };
