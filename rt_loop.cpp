@@ -1,6 +1,8 @@
 #include "rt_loop.h"
 #include "mbed.h"
 
+#define PI 3.1415927
+
 extern DigitalOut led;
 
 extern EncoderCounter enc1;
@@ -18,7 +20,10 @@ void rt_loop::theloop(void) {
     short c1 = enc1;
     short c2 = enc2;
 
-    printf("%d %d\r\n", c1, c2);
+    float phi1 = (float)c1 * 2 * PI / 4000.0f;
+    float phi2 = (float)c2 * 2 * PI / 4000.0f;
+
+    printf("%d %d %f %f\r\n", c1, c2, phi1, phi2);
   }
 }
 
