@@ -2,10 +2,10 @@
 
 #include "EncoderCounter.h"
 #include "IIR_filter.h"
+#include "LinearCharacteristics.h"
 #include "Signal.h"
 #include "ThreadFlag.h"
 #include "mbed.h"
-
 
 class rt_loop {
 public:
@@ -25,4 +25,6 @@ private:
 
   IIR_filter dif1;
   IIR_filter dif2;
+
+  LinearCharacteristics i2u;
 };

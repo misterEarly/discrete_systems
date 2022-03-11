@@ -18,6 +18,9 @@ static BufferedSerial serial_port(USBTX, USBRX);
 EncoderCounter enc1(PA_6, PC_7);
 EncoderCounter enc2(PB_6, PB_7);
 
+AnalogOut i_des1(PA_5);
+AnalogOut i_des2(PA_4);
+
 int main() {
   serial_port.set_baud(115200);
   serial_port.set_format(8, BufferedSerial::None, 1);

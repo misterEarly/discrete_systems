@@ -9,12 +9,17 @@ extern DigitalOut led;
 extern EncoderCounter enc1;
 extern EncoderCounter enc2;
 
+extern AnalogOut i_des1;
+extern AnalogOut i_des2;
+
 rt_loop::rt_loop(float Ts) {
 
   this->Ts = Ts;
 
   dif1.setup(0.01, Ts);
   dif2.setup(0.01, Ts);
+
+  i2u.setup(-0.8, 0.8, 0, 1);
 }
 
 void rt_loop::theloop(void) {
@@ -23,7 +28,6 @@ void rt_loop::theloop(void) {
     ThisThread::flags_wait_any(threadFlag);
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // -
-    led = !led;
 
     short c1 = enc1;
     short c2 = enc2;
@@ -34,8 +38,17 @@ void rt_loop::theloop(void) {
     float w1 = dif1(phi1);
     float w2 = dif2(phi2);
 
+    if (k < 128) {
+      i_des1 = i2u(0.25);
+      i_des2 = i2u(0);
+    } else {
+      i_des1 = i2u(0);
+      i_des2 = i2u(0.25);
+    }
+
     if (++k == 0) {
       printf("%d %d %f %f %f %f\r\n", c1, c2, phi1, phi2, w1, w2);
+      led = !led;
     }
   }
 }
