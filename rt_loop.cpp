@@ -32,7 +32,8 @@ void rt_loop::theloop(void) {
     float phi2 = (float)c2 * 2 * PI / 4000.0f;
 
     float w1 = dif1(phi1);
-    float w2 = dif2(phi1);
+    float w2 = dif2(phi2);
+
     if (++k == 0) {
       printf("%d %d %f %f %f %f\r\n", c1, c2, phi1, phi2, w1, w2);
     }
