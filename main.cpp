@@ -21,6 +21,9 @@ EncoderCounter enc2(PB_6, PB_7);
 AnalogOut i_des1(PA_5);
 AnalogOut i_des2(PA_4);
 
+DigitalIn big_button(PC_3);
+DigitalOut i_enable(PC_4);
+
 int main() {
   serial_port.set_baud(115200);
   serial_port.set_format(8, BufferedSerial::None, 1);

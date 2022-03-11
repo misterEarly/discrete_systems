@@ -1,4 +1,5 @@
 #include "rt_loop.h"
+#include "LinearCharacteristics.h"
 #include "mbed.h"
 #include <cstdint>
 
@@ -11,6 +12,9 @@ extern EncoderCounter enc2;
 
 extern AnalogOut i_des1;
 extern AnalogOut i_des2;
+
+extern DigitalIn big_button;
+extern DigitalOut i_enable;
 
 rt_loop::rt_loop(float Ts) {
 
@@ -45,6 +49,8 @@ void rt_loop::theloop(void) {
       i_des1 = i2u(0);
       i_des2 = i2u(0.25);
     }
+
+    i_enable = big_button;
 
     if (++k == 0) {
       printf("%d %d %f %f %f %f\r\n", c1, c2, phi1, phi2, w1, w2);
